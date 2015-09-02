@@ -24,8 +24,7 @@ $(document).ready(function() {
         var bmi = Number($("#kg").val()) / ((Number($("#cm").val()) / 100)^2);
         $("#ibw").html("IBW: " + String(ibw) + " kg (" + String(2.20462 * ibw) + "lbs)");
         $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + String(abw) + " kg (" + String(2.20462 * abw) + " lbs)"));
-        $("#bmi").html("BMI: " + ibw.toFixed(2) + " kg/m<sup>2</sup>");
-        $("#results").addClass("calculated");
+        $("#bmi").html("BMI: " + String(ibw.toFixed(2)) + " kg/m<sup>2</sup>");
       }
     },
     // Calculate button has no action, but it will cause any text areas to lose focus and thus a change event to possibly fire.
@@ -37,7 +36,6 @@ $(document).ready(function() {
       $("#cm,#inches,#kg,#lbs").val("");
       $("#abw").html(this.defaultABW);
       $("#ibw").html(this.defaultIBW);
-      $("#results").removeClass("calculated");
     }
     setError: function() {
     	    $("#ibw").html("IBW will appear here once all errors are cleared.");
@@ -52,16 +50,14 @@ $(document).ready(function() {
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#inches").val("");
       data.generateError($("#height-warning"), data.heightNaN, data.defaultHeightWarning);
-      data.setError();
     } else {
       var inches = Number(trimmedValue) / 2.54;
       $("#inches").val(String(inches));
       if (inches < 60) {
         data.generateError($("#height-warning"), data.under60Error, data.defaultHeightWarning);
-        data.setError();
       } else {
         $("#height-warning").empty();
-        data.calculate();
+data.calculate();
       }
     }
   });
@@ -71,13 +67,11 @@ $(document).ready(function() {
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#cm").html("");
       data.generateError($("#height-warning"),data.heightNaN,data.defaultHeightWarning);
-      data.setError();
     } else {
       var inches = Number(trimmedValue);
       $("#cm").val(String(inches * 2.54));
       if (inches < 60) 
         data.generateError($("#height-warning"),data.under60Error, data.defaultHeightWarning);
-    	data.setError();
       else {
         $("#height-warning").empty();
          data.calculate();
@@ -94,13 +88,11 @@ $(document).ready(function() {
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#lbs").val("");
       data.generateError($("#weight-warning"),data.weightNaN,data.defaultWeightWarning);
-      data.setError();
     } else {
       var kg = Number(trimmedValue);
       $("#lbs").val(String(2.20462 * kg));
       if (kg < 0) {
         data.generateError($("#weight-warning"), data.negativeWeightError, data.defaultWeightWarning);
-        data.setError();
         
       } else {
         $("#weight-warning").html("");
@@ -114,14 +106,12 @@ $(document).ready(function() {
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#kg").val("");
       data.generateError($("#weight-warning"),data.weightNaN,data.defaultWeightWarning);
-      data.setError();
       
     } else {
       var lbs = Number(trimmedValue);
       $("#kg").val(String(lbs / 2.20462));
       if (lbs < 0) {
         data.generateError($("#weight-warning"),data.negativeWeightError,data.defaultWeightWarning);
-        data.setError();
       } else {
         $("#weight-warning").empty();
         data.calculate();

@@ -1,12 +1,20 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,800,300italic,300);
-
-* {
-  font-family: "Open Sans"
+@font-face {
+	font-family: "Open Sans";
+	src: url("OpenSans/OpenSansRegular.ttf") format("truetype");
 }
+
+
+/* Style rules for all devices */
+
 
 .error {
   color: red;
   font-weight: bold;
+}
+
+
+* {
+	font-family: "Open Sans"
 }
 
 button {

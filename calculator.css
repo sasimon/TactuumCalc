@@ -21,3 +21,8 @@ button {
   width: 49%;
   height: 36pt;
 }
+
+.calculated {
+	font-size: 1.33em;
+	background-color: #090909;
+}

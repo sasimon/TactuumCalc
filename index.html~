@@ -44,6 +44,7 @@
     <label for="lbs">lbs</label>
 </fieldset>
 <div id="buttons">
+    <button type="button" id="calculate">Calculate</button>
     <button type="button" id="reset">Reset</button>
 </div>
     <div id="results">
