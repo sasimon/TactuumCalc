@@ -38,12 +38,13 @@ $(document).ready(function() {
       $("#abw").html(this.defaultABW);
       $("#ibw").html(this.defaultIBW);
       $("#results").removeClass("calculated");
-    }
+    },
     setError: function() {
     	    $("#ibw").html("IBW will appear here once all errors are cleared.");
     	    $("#abw").html("ABW will appear here once all errors are cleared.");
     	    $("#bmi").html("BMI will appear here once all errors are cleared.");
     	    $("#results").removeClass("calculated");
+    }
   };
   // Height change triggers
   $("#cm").change(data, function() {
@@ -75,10 +76,10 @@ $(document).ready(function() {
     } else {
       var inches = Number(trimmedValue);
       $("#cm").val(String(inches * 2.54));
-      if (inches < 60) 
+      if (inches < 60) {
         data.generateError($("#height-warning"),data.under60Error, data.defaultHeightWarning);
     	data.setError();
-      else {
+      } else {
         $("#height-warning").empty();
          data.calculate();
       }
