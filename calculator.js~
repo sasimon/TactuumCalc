@@ -22,9 +22,10 @@ $(document).ready(function() {
         var ibw = 2.3 * (Number($("#inches").val()) - 60) + ($("#female").is(":checked") ? 45.5 : 50);
         var abw = (Number($("#kg").val()) - ibw) * 0.4 + ibw;
         var bmi = Number($("#kg").val()) / ((Number($("#cm").val()) / 100)^2);
-        $("#ibw").html("IBW: " + String(ibw) + " kg (" + String(2.20462 * ibw) + "lbs)");
-        $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + String(abw) + " kg (" + String(2.20462 * abw) + " lbs)"));
-        $("#bmi").html("BMI: " + String(ibw.toFixed(2)) + " kg/m<sup>2</sup>");
+        $("#ibw").html("IBW: " + ibw.toFixed(2) + " kg (" + (2.20462 * ibw).toFixed(2) + "lbs)");
+        $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + abw.toFixed(2) + " kg (" + (2.20462 * abw).toFixed(2) + " lbs)"));
+        $("#bmi").html("BMI: " + ibw.toFixed(2) + " kg/m<sup>2</sup>");
+        $("#results").addClass("calculated");
       }
     },
     // Calculate button has no action, but it will cause any text areas to lose focus and thus a change event to possibly fire.
@@ -36,12 +37,14 @@ $(document).ready(function() {
       $("#cm,#inches,#kg,#lbs").val("");
       $("#abw").html(this.defaultABW);
       $("#ibw").html(this.defaultIBW);
-    }
+      $("#results").removeClass("calculated");
+    },
     setError: function() {
     	    $("#ibw").html("IBW will appear here once all errors are cleared.");
     	    $("#abw").html("ABW will appear here once all errors are cleared.");
     	    $("#bmi").html("BMI will appear here once all errors are cleared.");
     	    $("#results").removeClass("calculated");
+    }
   };
   // Height change triggers
   $("#cm").change(data, function() {
@@ -50,14 +53,16 @@ $(document).ready(function() {
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#inches").val("");
       data.generateError($("#height-warning"), data.heightNaN, data.defaultHeightWarning);
+      data.setError();
     } else {
       var inches = Number(trimmedValue) / 2.54;
       $("#inches").val(String(inches));
       if (inches < 60) {
         data.generateError($("#height-warning"), data.under60Error, data.defaultHeightWarning);
+        data.setError();
       } else {
         $("#height-warning").empty();
-data.calculate();
+        data.calculate();
       }
     }
   });
@@ -67,12 +72,14 @@ data.calculate();
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#cm").html("");
       data.generateError($("#height-warning"),data.heightNaN,data.defaultHeightWarning);
+      data.setError();
     } else {
       var inches = Number(trimmedValue);
       $("#cm").val(String(inches * 2.54));
-      if (inches < 60) 
+      if (inches < 60) {
         data.generateError($("#height-warning"),data.under60Error, data.defaultHeightWarning);
-      else {
+    	data.setError();
+      } else {
         $("#height-warning").empty();
          data.calculate();
       }
@@ -88,11 +95,13 @@ data.calculate();
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#lbs").val("");
       data.generateError($("#weight-warning"),data.weightNaN,data.defaultWeightWarning);
+      data.setError();
     } else {
       var kg = Number(trimmedValue);
       $("#lbs").val(String(2.20462 * kg));
       if (kg < 0) {
         data.generateError($("#weight-warning"), data.negativeWeightError, data.defaultWeightWarning);
+        data.setError();
         
       } else {
         $("#weight-warning").html("");
@@ -106,12 +115,14 @@ data.calculate();
     if (trimmedValue === "" || isNaN(trimmedValue)) {
       $("#kg").val("");
       data.generateError($("#weight-warning"),data.weightNaN,data.defaultWeightWarning);
+      data.setError();
       
     } else {
       var lbs = Number(trimmedValue);
       $("#kg").val(String(lbs / 2.20462));
       if (lbs < 0) {
         data.generateError($("#weight-warning"),data.negativeWeightError,data.defaultWeightWarning);
+        data.setError();
       } else {
         $("#weight-warning").empty();
         data.calculate();

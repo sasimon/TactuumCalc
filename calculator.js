@@ -22,8 +22,8 @@ $(document).ready(function() {
         var ibw = 2.3 * (Number($("#inches").val()) - 60) + ($("#female").is(":checked") ? 45.5 : 50);
         var abw = (Number($("#kg").val()) - ibw) * 0.4 + ibw;
         var bmi = Number($("#kg").val()) / ((Number($("#cm").val()) / 100)^2);
-        $("#ibw").html("IBW: " + String(ibw) + " kg (" + String(2.20462 * ibw) + "lbs)");
-        $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + String(abw) + " kg (" + String(2.20462 * abw) + " lbs)"));
+        $("#ibw").html("IBW: " + ibw.toFixed(2) + " kg (" + (2.20462 * ibw).toFixed(2) + "lbs)");
+        $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + abw.toFixed(2) + " kg (" + (2.20462 * abw).toFixed(2) + " lbs)"));
         $("#bmi").html("BMI: " + ibw.toFixed(2) + " kg/m<sup>2</sup>");
         $("#results").addClass("calculated");
       }
