@@ -24,7 +24,7 @@ $(document).ready(function() {
         var bmi = Number($("#kg").val()) / ((Number($("#cm").val()) / 100)^2);
         $("#ibw").html("IBW: " + ibw.toFixed(2) + " kg (" + (2.20462 * ibw).toFixed(2) + "lbs)");
         $("#abw").html("ABW" + (abw < ibw ? " is less than IBW." : ": " + abw.toFixed(2) + " kg (" + (2.20462 * abw).toFixed(2) + " lbs)"));
-        $("#bmi").html("BMI: " + ibw.toFixed(2) + " kg/m<sup>2</sup>");
+        $("#bmi").html("BMI: " + bmi.toFixed(2) + " kg/m<sup>2</sup>");
         $("#results").addClass("calculated");
       }
     },
